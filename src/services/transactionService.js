@@ -10,7 +10,7 @@ export const addTransaction = (transaction) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(transaction)
-    }).then(data => data.json());
+    });
 }
 
 export const getCompressedTransactions = () => {

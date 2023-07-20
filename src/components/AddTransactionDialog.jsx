@@ -14,9 +14,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { addTransaction } from "../services/transactionService";
+import propsTypes from 'prop-types';
 
-export default function AddTransactionDialog(props) {
-  const { onClose, open } = props;
+export default function AddTransactionDialog({ onClose, open } ) {
 
   const tradingParty = "me";
 
@@ -36,6 +36,10 @@ export default function AddTransactionDialog(props) {
     setAddTransactionInProgress(false);
     onClose(true);
   };
+
+  const isAmountValid = () => {
+    return /^[1-9]\d*$/.test(amount);
+  }
 
   return (
     <Dialog maxWidth="sm" fullWidth={true} onClose={handleClose} open={open}>
@@ -89,10 +93,12 @@ export default function AddTransactionDialog(props) {
               type="number"
               value={amount}
               onChange={(event) => {
-                setAmount(Number.parseInt(event.target.value));
+                setAmount(event.target.value);
               }}
               fullWidth
               required
+              error={amount && !isAmountValid()}
+              helperText={amount && !isAmountValid() ? 'Pleas enter valid number' : ''}
             />
           </Grid>
         </Grid>
@@ -106,7 +112,7 @@ export default function AddTransactionDialog(props) {
             <Button
               onClick={addTransactionData}
               autoFocus
-              disabled={!(counterParty && amount && amount > 1)}
+              disabled={!(counterParty && amount && isAmountValid())}
             >
               Add Transaction
             </Button>
@@ -116,3 +122,13 @@ export default function AddTransactionDialog(props) {
     </Dialog>
   );
 }
+
+AddTransactionDialog.defaultProps = {
+  onClose: () => null,
+  open: false,
+};
+
+AddTransactionDialog.propTypes = {
+  onClose: propsTypes.func,
+  open: propsTypes.bool
+};

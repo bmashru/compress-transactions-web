@@ -59,7 +59,7 @@ function Home() {
         container
         direction="row"
         justifyContent="space-evenly"
-        alignItems="center"
+        alignItems="flex-start"
       >
         {loading ? (
           <CircularProgress />
@@ -92,8 +92,24 @@ function Home() {
           </Button>
         </Grid>
         <Grid item>
-          <CsvExport asyncExportMethod={compressTransactions}>
-            <Button variant="contained">Compress Transaction</Button>
+          <CsvExport
+            asyncExportMethod={compressTransactions}
+            disable={
+              trnasactions?.paying?.length || trnasactions?.receiving?.length
+                ? false
+                : true
+            }
+          >
+            <Button
+              variant="contained"
+              disabled={
+                trnasactions?.paying?.length || trnasactions?.receiving?.length
+                  ? false
+                  : true
+              }
+            >
+              Compress Transaction
+            </Button>
           </CsvExport>
         </Grid>
       </Grid>
