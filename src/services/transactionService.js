@@ -12,3 +12,7 @@ export const addTransaction = (transaction) => {
         body: JSON.stringify(transaction)
     }).then(data => data.json());
 }
+
+export const getCompressedTransactions = () => {
+    return fetch(`${BASE_URL}/compressTransaction`).then(data => data.json());
+}

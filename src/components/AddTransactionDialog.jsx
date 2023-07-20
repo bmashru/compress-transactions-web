@@ -18,7 +18,7 @@ import { addTransaction } from "../services/transactionService";
 export default function AddTransactionDialog(props) {
   const { onClose, open } = props;
 
-  const tradingparty = "me";
+  const tradingParty = "me";
 
   const [type, setType] = useState(-1);
   const [counterParty, setCounterPart] = useState("");
@@ -32,7 +32,7 @@ export default function AddTransactionDialog(props) {
 
   const addTransactionData = async () => {
     setAddTransactionInProgress(true);
-    await addTransaction({ tradingparty, counterParty, amount: type * amount });
+    await addTransaction({ tradingParty, counterParty, amount: type * amount });
     setAddTransactionInProgress(false);
     onClose(true);
   };
@@ -45,7 +45,7 @@ export default function AddTransactionDialog(props) {
           <Grid item xs={6}>
             <TextField
               label="Trading Party"
-              value={tradingparty}
+              value={tradingParty}
               variant="standard"
               disabled
               fullWidth
